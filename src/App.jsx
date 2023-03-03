@@ -10,13 +10,23 @@ import "./styles.css"
 
 export default function Board() {
 
+  const [xIsNext, setXIsNext] = useState(true)
   const [squares, setSquares] = useState(Array(9).fill(null));
   
   const onSquareClick = (i) => {
-
+  
+    if (squares[i]) {
+      return;
+    }
     const nextSquares = squares.slice();
-    nextSquares[i] = "x"
+
+    if (xIsNext) {
+      nextSquares[i] = "X"
+    } else {
+      nextSquares[i] = "O"
+    }
     setSquares(nextSquares);
+    setXIsNext(!xIsNext);
 }
 
 
