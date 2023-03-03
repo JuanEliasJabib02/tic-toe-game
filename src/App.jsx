@@ -1,69 +1,29 @@
-/**
- * 
- * @returns 
- * In React, a component is a piece of reusable code that represents a part of a user interface. 
- * Components are used to render, manage, and update the UI elements in your application
- */
 import { useState } from "react";
-import Square from "./components/Square"
+import Board from "./components/Board";
 import "./styles.css"
-import { calculateWinner } from "./helper/calculateWinner";
 
-export default function Board() {
+export default function Game() {
 
-  const [xIsNext, setXIsNext] = useState(true)
-  const [squares, setSquares] = useState(Array(9).fill(null));
+  const [xIsNext, setXIsNext] = useState(true);
+  const [history, setHistory] = useState([Array(9).fill(null)]);
 
-  const winner = calculateWinner(squares);
-  let status;
-  if (winner) {
-    status = "Winner: " + winner;
-  } else {
-    status = "Next player: " + (xIsNext ? "X" : "O");
-  }
-  
-  const onSquareClick = (i) => {
-  
-    if (squares[i] || calculateWinner(squares)) {
-      return;
-    }
-    const nextSquares = squares.slice();
+  const currentSquares = history[history.length - 1];
 
-    if (xIsNext) {
-      nextSquares[i] = "X"
-    } else {
-      nextSquares[i] = "O"
-    }
-    setSquares(nextSquares);
+  function handlePlay(nextSquares) {
+
+    setHistory([...history, nextSquares]);
     setXIsNext(!xIsNext);
-}
+  }
 
 
-  const data = "hi i am a prop"
   return (
-    <> 
-      {/* React components need to return a single JSX 
-      element and not multiple adjacent JSX elements like 
-      two buttons. To fix this you can use fragments (<> and </>) 
-      to wrap multiple adjacent JSX elements like this: */}
-      <div className="status">{status}</div>
-      <div className="board-row">
-              {/* We can send data from the parent to the
-              child component by props(propertys) */}
-        < Square prop={data} value={squares[1]} onSquareClick={() => onSquareClick(1)} />
-        < Square value={squares[2]} onSquareClick={() => onSquareClick(2)} />
-        < Square value={squares[3]} onSquareClick={() => onSquareClick(3)} />
+    <div className="game">
+      <div className="game-board">
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} />
       </div>
-      <div className="board-row">
-        < Square  value={squares[4]} onSquareClick={() => onSquareClick(4)} />
-        < Square  value={squares[5]} onSquareClick={() => onSquareClick(5)} />
-        < Square value={squares[6]} onSquareClick={() => onSquareClick(6)} />
+      <div className="game-info">
+        <ol>{/*TODO*/}</ol>
       </div>
-      <div className="board-row">
-        < Square value={squares[7]} onSquareClick={() => onSquareClick(7)} />
-        < Square value={squares[8]} onSquareClick={() => onSquareClick(8)} />
-        < Square value={squares[9]} onSquareClick={() => onSquareClick(9)}  />
-      </div>
-    </>
-  )
+    </div>
+  );
 }
