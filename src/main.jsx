@@ -4,6 +4,8 @@ import "./styles.css";
 
 import App from "./App";
 
+/* The main file is the bridge
+between the app and the browser */
 const root = createRoot(document.getElementById("root"));
 root.render(
   <StrictMode>
