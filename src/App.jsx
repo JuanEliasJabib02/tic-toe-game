@@ -7,6 +7,8 @@ export default function Game() {
   const [xIsNext, setXIsNext] = useState(true);
   const [history, setHistory] = useState([Array(9).fill(null)]);
 
+  /* We can use states in the parent 
+  if the components children will use the info in alls */
   const currentSquares = history[history.length - 1];
 
   function handlePlay(nextSquares) {
