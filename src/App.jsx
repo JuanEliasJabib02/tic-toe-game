@@ -15,19 +15,21 @@ export default function Board() {
       two buttons. To fix this you can use fragments (<> and </>) 
       to wrap multiple adjacent JSX elements like this: */}
       <div className="board-row">
-        < Square />
-        < Square />
-        < Square />
+              {/* We can send data from the parent to the
+              child component by props(propertys) */}
+        < Square value="1"/>
+        < Square value="2"/>
+        < Square value="3" />
       </div>
       <div className="board-row">
-        < Square />
-        < Square />
-        < Square />
+        < Square value="4"/>
+        < Square value="5" />
+        < Square  value="6"/>
       </div>
       <div className="board-row">
-        < Square />
-        < Square />
-        < Square />
+        < Square value="7" />
+        < Square value="8"/>
+        < Square value="9"/>
       </div>
     </>
   )
