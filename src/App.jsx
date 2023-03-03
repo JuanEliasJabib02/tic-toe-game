@@ -7,15 +7,24 @@
 import { useState } from "react";
 import Square from "./components/Square"
 import "./styles.css"
+import { calculateWinner } from "./helper/calculateWinner";
 
 export default function Board() {
 
   const [xIsNext, setXIsNext] = useState(true)
   const [squares, setSquares] = useState(Array(9).fill(null));
+
+  const winner = calculateWinner(squares);
+  let status;
+  if (winner) {
+    status = "Winner: " + winner;
+  } else {
+    status = "Next player: " + (xIsNext ? "X" : "O");
+  }
   
   const onSquareClick = (i) => {
   
-    if (squares[i]) {
+    if (squares[i] || calculateWinner(squares)) {
       return;
     }
     const nextSquares = squares.slice();
@@ -37,6 +46,7 @@ export default function Board() {
       element and not multiple adjacent JSX elements like 
       two buttons. To fix this you can use fragments (<> and </>) 
       to wrap multiple adjacent JSX elements like this: */}
+      <div className="status">{status}</div>
       <div className="board-row">
               {/* We can send data from the parent to the
               child component by props(propertys) */}
